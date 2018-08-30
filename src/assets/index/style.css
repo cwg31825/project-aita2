@@ -1,0 +1,93 @@
+@font-face {
+  font-family: 'index';
+  src:  url('../index/fonts/icomoon.eot?r30znd');
+  src:  url('../index/fonts/icomoon.eot?r30znd#iefix') format('embedded-opentype'),
+    url('../index/fonts/icomoon.ttf?r30znd') format('truetype'),
+    url('../index/fonts/icomoon.woff?r30znd') format('woff'),
+    url('../index/fonts/icomoon.svg?r30znd#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+.login .mint-field-core{
+  background-color: red;
+}
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'index' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-car:before {
+  content: "\e90c";
+  color: #4d4d4d;
+}
+.icon-category:before {
+  content: "\e90d";
+  color: #707070;
+}
+.icon-ok:before {
+  content: "\e90b";
+  color: #ea545d;
+}
+.icons-index {
+  background-image: url('../index/home.png');
+  background-size: cover;
+  width: 24px;
+  height: 24px;
+  filter: grayscale(100%);
+  opacity: 0.6;
+}
+.icon-right:before {
+  content: "\e904";
+  color: #515151;
+}
+.icon-search:before {
+  content: "\e905";
+  color: #515151;
+}
+.icon-user:before {
+  content: "\e90a";
+  color: #515151;
+}
+.icon-go:before {
+  content: "\e900";
+  color: #bfbfbf;
+}
+.icon-less .path1:before {
+  content: "\e906";
+  color: rgb(242, 187, 10);
+}
+.icon-less .path2:before {
+  content: "\e907";
+  margin-left: -1em;
+  color: rgb(255, 242, 217);
+}
+.icon-less .path3:before {
+  content: "\e908";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-less .path4:before {
+  content: "\e909";
+  margin-left: -1em;
+  color: rgb(242, 187, 10);
+}
+.icon-com:before {
+  content: "\e902";
+}
+.icon-set:before {
+  content: "\e901";
+}
+.mint-tab-item .mint-tab-item-label {
+  position: relative;
+}
+

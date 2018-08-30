@@ -1,0 +1,138 @@
+<template>
+  <div id="app">
+        <keep-alive>
+            <router-view v-if="$route.meta.keepAlive"></router-view>
+        </keep-alive>
+        <router-view v-if="!$route.meta.keepAlive"></router-view>
+    </div>
+</template>
+
+<script>
+import Loading from '@/common/_loading'
+export default {
+  components:{
+    'v-loading':Loading
+  },
+mounted() {
+      // 获取购物车信息 因为加购物车可以不用登录 所以用localStorage保存着 页面加载时更新到vuex中
+      let cartList = JSON.parse(localStorage.getItem('cartList'))
+      if (cartList) {
+        this.$store.dispatch('updateCart', {cartList})
+      }
+    }
+}
+</script>
+
+<style lang="less">
+html,body,#app{
+  width: 100%;
+  height: 100%;
+  -webkit-tap-highlight-color:rgba(0,0,0,0)
+}
+
+body,
+dd,
+dl,
+dt,
+fieldset,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+html,
+img,
+legend,
+li,
+ol,
+p,
+ul {
+    font-family: "Microsoft YaHei";
+    margin: 0;
+    padding: 0;
+    -moz-user-select:none;-webkit-user-select:none;
+    -webkit-tap-highlight-color:transparent;
+}
+
+button,
+fieldset,
+img,
+input {
+    border: none;
+    padding: 0;
+    margin: 0;
+    outline-style: none;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+input {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-family: "SimSun", "宋体";
+}
+
+input,
+select {
+    vertical-align: middle;
+}
+
+input,
+select,
+textarea {
+    font-size: 12px;
+    margin: 0;
+}
+textarea {
+    resize: none;
+}
+
+/*防止拖动*/
+img {
+    border: 0;
+    vertical-align: middle;
+    width: 100%;
+}
+
+/*  去掉图片低测默认的3像素空白缝隙*/
+table {
+    border-collapse: collapse;
+}
+//去斜体
+i {
+  font-style:normal
+}
+body {
+    font-family: PingFangSC-Light,helvetica,'Heiti SC';
+    color: #666;
+    background: #fff;
+}
+
+a {
+    color: #666;
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 100%;
+    font-family: PingFangSC-Light,helvetica,'Heiti SC';
+}
+
+.ac {
+    text-align: center;
+}
+
+
+</style>
