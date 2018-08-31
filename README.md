@@ -1,19 +1,15 @@
 # 技术栈
 
-vue2.0 + vue-router + vuex + axios + mock.js(模拟数据) + ES6 + less
+cordova + vue2.0 + mint-ui + vue-router + vuex + axios + mock.js(模拟数据) + ES6 + less
 
 ## 简介
 
-vuex + webStorage 实现了购物车功能,axios拦截,配合路由钩子函数实现权限控制、登录、登出功能
-
-## 练习
-
-该项目带大量详细注释,可作为vuex的练习，但不适合零基础
+vuex + webStorage 实现了购物车功能,axios拦截统一处理 ajax 请求错误
 
 
 ## 预览
 
-![](./static/car.gif)   ![](./static/login.gif)
+
 
 
 ## 经验
@@ -32,8 +28,6 @@ vuex + webStorage 实现了购物车功能,axios拦截,配合路由钩子函数�
 
 1. 购物车内编辑(增减商品)
 
-2. 搜索功能
-
 
 ## Build Setup
 
@@ -42,7 +36,7 @@ vuex + webStorage 实现了购物车功能,axios拦截,配合路由钩子函数�
 npm install
 
 # serve with hot reload at localhost:1322
-npm run dev
+npm start
 
 # build for production with minification
-npm run build
+npm run android
