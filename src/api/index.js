@@ -1,7 +1,7 @@
 import config from '../config'
 import router from '@/router'
 import { removeInfo } from '@/utils/auth'
-import { MessageBox, Toast } from "mint-ui";
+import { MessageBox, Toast ,Indicator} from "mint-ui";
 import axios from 'axios'
 import qs from 'qs'
 const api = axios.create();
@@ -15,6 +15,7 @@ api.interceptors.request.use(request => {
   // 在发送请求之前做些什么
   // 如果有token,添加到请求报文 后台会根据该报文返回status
   //request.headers.Authorization = `token ${store.state.login.token}`;
+  Indicator.open();
   return request;
 
 }, error => {
@@ -27,6 +28,7 @@ api.interceptors.request.use(request => {
 // 添加响应拦截器
 api.interceptors.response.use(response => {
   // 对响应数据做点什么
+  Indicator.close();
   let data = response.data
   if (data.code === '-220' || data.code === '-210') {//登录超时或没有登录
     removeInfo();

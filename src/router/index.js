@@ -9,8 +9,6 @@ const SupplierDetail = resolve => require(['@/views/supplier/storesDetail'], res
 const Search = resolve => require(['@/views/search/search.vue'], resolve) // 搜索
 const SearchMain = resolve => require(['@/views/search/main.vue'], resolve) // 搜索内容
 
-const Location = resolve => require(['@/views/location/location'], resolve)   //定位
-
 const Pay = resolve => require(['@/views/pay/pay'], resolve)      //支付
 const Cart = resolve => require(['@/views/cart/cart'], resolve)   //购物车
 
@@ -97,11 +95,6 @@ export default new Router({
         name: '订单收货地址',
         component: Address
       }]
-    },
-    {
-      path: '/location',
-      name: '定位',
-      component: Location
     },
     {
       path: '/pay',

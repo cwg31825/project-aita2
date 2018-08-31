@@ -1,5 +1,4 @@
 import * as types from '../mutation-types'
-import {location} from '@/api/location'
 
 const state = {
   lat: '', // 当前位置纬度
@@ -17,18 +16,6 @@ const getters = {
 const actions = {
   clearAddress({commit, state}) {
     commit(types.CLEAR_ADDRESS);
-  },
-  location({commit, state}) {
-    location().then((response) => {
-      if (response.data.status === 200) {
-        let data = response.data.data;
-        commit(types.RECORD_ADDRESS, {...data.location}) //保存title 和 经纬度到VUEX中
-        commit(types.LOCATION_READY, true);    //定位完成 拉取商店
-      } else {
-
-      }
-
-    })
   },
   recordAddress({commit}, address) {
     commit(types.RECORD_ADDRESS, address) //保存title 和 经纬度到VUEX中
