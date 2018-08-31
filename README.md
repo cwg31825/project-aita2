@@ -7,13 +7,21 @@ vue2.0 + cordova + mint-ui + vue-router + vuex + axios + mock.js(模拟数据) +
 vuex + webStorage 实现了购物车功能,axios拦截统一处理 ajax 请求错误
 
 通过使用cordova，我们可以使混合移动应用程序，可以使用摄像头，地理位置，文件系统和其他本地移动功能。
+
 使用cordova之前，我们需要安装以下组件：
+
 1-Node.js
+
 2-java SDK
+
 3-Android SDK
+
 camera插件
+
 cordova plugin add cordova-plugin-camera
+
 通过照相机API、我们可以拍摄或者访问照片库中的照片，返回图片的base64编码字符串或者图片的url文件路径。
+
 
 
 ## 预览
