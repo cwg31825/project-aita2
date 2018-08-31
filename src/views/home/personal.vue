@@ -9,7 +9,7 @@
             <mt-cell
               title="工部头像"
               is-link
-               @click.native='showPicture'
+               @click.native='actionSheet'
              >
               <div class="show" >
                
@@ -58,12 +58,11 @@
     <mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
       <mt-picker :slots="slots" value-key="name" @change="onValuesChange" :visible-item-count="5" ></mt-picker>
     </mt-popup>
-    <mt-popup v-model="TakePictureType" position="bottom" style="width: 100%;">
-      <div>
-        <div class='popup-item' @click='cameraTakePicture(1)'>相机</div>
-        <div class='popup-item' @click='cameraTakePicture(2)'>图库</div>
-      </div>
-  </mt-popup>
+  <mt-actionsheet
+  :actions="actions"
+  v-model="sheetVisible">
+</mt-actionsheet>
+
   </div>
 
 </template>
@@ -79,7 +78,7 @@ import {
 } from "@/api/user";
 import Utils from "@/utils/common";
 import moment from "moment";
-
+import { Actionsheet } from 'mint-ui';
 export default {
   components: {},
   data() {
@@ -105,6 +104,16 @@ export default {
           textAlign: "center"
         }
       ],
+      // action sheet 选项内容
+      actions: [{
+        name: '拍照',
+        method : this.getCamera	// 调用methods中的函数
+      }, {
+        name: '从相册中选择', 
+        method : this.getLibrary	// 调用methods中的函数
+      }],
+      // action sheet 默认不显示，为false。操作sheetVisible可以控制显示与隐藏
+      sheetVisible: false,
       popupVisible: false,
       TakePictureType: false,
       myImage: "",
@@ -219,8 +228,17 @@ export default {
     showSex() {
       this.popupVisible = true;
     },
-    showPicture() {
-      this.TakePictureType = true;
+    actionSheet: function(){
+    	// 打开action sheet
+      this.sheetVisible = true;
+    },
+    getCamera: function(){
+      console.log("打开照相机")
+      this.cameraTakePicture(1)
+    },
+    getLibrary: function(){
+      console.log("打开相册")
+      this.cameraTakePicture(2)
     },
     editSex(id) {
       var data = {

@@ -27,7 +27,9 @@
                     <mt-button  size="small" v-show="item.status=='8'||item.order_status=='8'" class="small red" @click="setReceived(item.order_id||order_id)">确认收货</mt-button>
                   </div>
               </li>
+              <p v-if="order_list.length==0" style="text-align: center;">没有订单数据</p>
             </ul>
+            
 </template>
 <script>
 import { getInfo } from "@/utils/auth";

@@ -123,18 +123,11 @@ export const _get = (req) => {
 export const _post = (req) => {
   return api({ method: 'post', url: `/${req.url}`, data: qs.stringify(req.data) })
 }
-
+// file
+export const _file = (req) => {
+  return api({ method: 'post', url: 'https://file.tongyongjifen.cn/moniter/savefile', data: qs.stringify(req.data) })
+}
 //patch
 export const _put = (req) => {
   return api({ method: 'put', url: `/${req.url}`, data: req.data })
-}
-
-//delete
-export const _delete = (req) => {
-  return api({ method: 'delete', url: `/${req.url}`, data: req.data })
-}
-
-//post and no withCredentials
-export const _postNoWithCredentials = (req) => {
-  return api({ method: 'post', url: `/${req.url}`, data: req.data, withCredentials: false })
 }

@@ -144,30 +144,51 @@ export default new Router({
       path: '/setting',
       name: '设置',
       component: Setting,
+      meta: {
+        requireAuth: true,
+    }
     },{
       path: '/addressManage',
       name: '地址管理',
       component: AddressManage,
+      meta: {
+        requireAuth: true,
+    }
     },{
       path: '/add_address',
       name: '添加地址',
       component: Add_Address,
+      meta: {
+        requireAuth: true,
+    }
     },{
       path: '/add_address/:id',
       name: '编辑地址',
       component: Add_Address,
+      meta: {
+        requireAuth: true,
+    }
     }, {
       path: '/personal',
       name: '个人资料',
       component: Personal,
+      meta: {
+        requireAuth: true,
+    }
     }, {
       path: '/setNickName',
       name: '修改昵称',
       component: SetNickName,
+      meta: {
+        requireAuth: true,
+    }
     }, {
       path: '/realName',
       name: '实名认证',
       component: RealName,
+      meta: {
+        requireAuth: true,
+    }
     }, {
       path: '/shenfenzheng',
       name: '上传身份证照片',
@@ -176,18 +197,30 @@ export default new Router({
       path: '/acountSecurity',
       name: '账户安全',
       component: AcountSecurity,
+      meta: {
+        requireAuth: true,
+    }
     }, {
       path: '/loginPsd',
       name: '登录密码',
       component: LoginPsd,
+      meta: {
+        requireAuth: true,
+    }
     }, {
       path: '/payPsd',
       name: '支付密码',
       component: PayPsd,
+      meta: {
+        requireAuth: true,
+    }
     }, {
       path: '/huLianTong',
       name: '互联通',
       component: HuLianTong,
+      meta: {
+        requireAuth: true,
+    }
     }, {
       path: '/myOrder',
       name: '待付款',
@@ -196,18 +229,30 @@ export default new Router({
       path: '/myOrder',
       name: '待收货',
       component: MyOrder,
+      meta: {
+        requireAuth: true,
+    }
     }, {
       path: '/myOrder',
       name: '已完成',
       component: MyOrder,
+      meta: {
+        requireAuth: true,
+    }
     }, {
       path: '/myOrder',
       name: '全部订单',
       component: MyOrder,
+      meta: {
+        requireAuth: true,
+    }
     }, {
       path: '/orderDetail',
       name: '订单详情',
       component: OrderDetail,
+      meta: {
+        requireAuth: true,
+    }
     }
 
   ]

@@ -38,40 +38,23 @@ export default {
   },
   data() {
     return {
-      title:this.$route.name,
+      title:'我的订单',
       selected: '',
-      id: "",
-      order_All: [],
-      order_list: [], //
-      options: [],
-      value: [],
+      order_list: [],
     };
   },
   created() {
      
     this.selected = this.$route.params.id? this.$route.params.id:"1";
-
-    this.ordersList(this.selected)
   },
   methods: {
     ordersList(s){
-      
-       let key = getInfo()
-      orders({key: key}).then(res => {
-        if (res.data.code == "1") {
-        this.$router.push({ name: "待付款", params: { id: this.selected }});
-        this.order_All = res.data.data
-        this.order_list = []
-        this.order_All.map(x => {
-          if(s=='0'){
-            this.order_list.push(x)
-          }else{
-            if (x.status==s) {
-              this.order_list.push(x)
-            }
-          }
-        });
-        }
+       let data = {
+         key: getInfo(),
+         order_state:s
+         }
+      orders(data).then(res => {
+        this.order_list = res.data.data
       });
         
     }

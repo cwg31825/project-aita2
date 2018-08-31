@@ -67,7 +67,7 @@ export const cancelOrder = (data) => {
 export const received = (data) => {
   let req = {
     data,
-    url: 'user/received'
+    url: 'order/received'
   }
   return _post(req)
 }

@@ -1,4 +1,4 @@
-import {_get, _post, _delete,_file} from './index'
+import {_get, _post,_file} from './index'
 
 //获取用户所有地址
 export const getAllAddress = (data) => {
