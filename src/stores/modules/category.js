@@ -1,5 +1,5 @@
 
-import * as types from '../types'
+import * as types from '../mutation-types'
 
 const state = {
   tabIndex:0

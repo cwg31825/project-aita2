@@ -59,11 +59,7 @@ export default {
         collect(data).then((res) => {
           if (res.data.code == '1') {
             this.getList();
-            //Toast(res.data.msg)
-            Toast({
-              message: res.data.msg,
-              iconClass: 'icon icon-success'
-            });
+            Toast(res.data.msg);
           }
         })
       } else {
@@ -119,7 +115,7 @@ export default {
     li {
       width: 100%;
       margin-bottom: 2vw;
-      height: 112px;
+      height: 30vw;
       overflow: hidden;
       -webkit-box-sizing: border-box;
       box-sizing: border-box;

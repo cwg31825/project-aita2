@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="wrap">
     <v-header :title="title" :fixed="true"></v-header>
-      <v-aside :datas="allData" :getList="getList" :type="type"></v-aside>
+      <v-aside :datas="allData" :getList="getList" v-on:childByValue="childByValue" :type="type"></v-aside>
       <router-view :datasList="datasList" :type="type" :getList="getList"></router-view>
   </div>
   
@@ -23,17 +23,17 @@ export default {
       type:this.$route.params.type,
       datasList: "",
       allData: "",
+       name: ''
     };
   },
   mounted() {
-    this.getList();
     this.getFitrate();
   },
-  computed:{
-
-},
   methods: {
-    
+     childByValue (childValue) {
+        // childValue就是子组件传过来的值
+        this.name = childValue
+      },
     getList(id, key) {
       
       if(this.type=='1'){
@@ -50,7 +50,7 @@ export default {
       if(this.type=='2'){
         let data = {
           key:getInfo(),
-          keyword: key
+          keyword: this.name
         };
         getSuppliers(data).then(res => {
         if (res.data.code == "1") {

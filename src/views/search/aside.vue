@@ -2,7 +2,7 @@
 <div class="jmc-search" v-if="datas">
     <!-- 当点击确定按钮时，触发submit事件 -->
     <div class="page-search" v-on:keyup.13="submit">
-      <mt-search autofocus v-model="value" placeholder="请输入关键字" :result="filterResult" @keyup.enter="testsearch()">
+      <mt-search autofocus v-model="value" placeholder="请输入关键字" :result="filterResult" @keyup.enter="submit()">
       </mt-search>
       <div class="hotkey-wrapper" v-if="type=='1'">
         <ul class="hotkey-list" >
@@ -41,13 +41,16 @@ export default {
   methods: {
     //点击确定按钮时，弹出打印search的值
     submit() {
-      this.getList(this.tabIndex,this.value)
+      this.$emit('childByValue', this.value)
+     setTimeout(this.getList(this.tabIndex,this.value),800)
+      
       this.$router.push({ name: "分类", params: { tab:0} });
     },
     changeTabIndex(i) {
       this.$store.commit("CHANGE_TABINDEX", i);
-     this.getList(i,this.value);
-      this.$router.push({ name: "分类", params: { tab:i} });
+     this.$emit('childByValue', this.value)
+     setTimeout(this.getList(this.tabIndex,this.value),800)
+     this.$router.push({ name: "分类", params: { tab:i} });
     }
   }
 };
