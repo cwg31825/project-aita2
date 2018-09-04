@@ -14,23 +14,19 @@
 </template>
 
 <script>
-import { MessageBox,Toast } from "mint-ui";
-import {mapGetters} from 'vuex'
+import { MessageBox, Toast } from "mint-ui";
+import { mapGetters } from "vuex";
 import { getInfo } from "@/utils/auth";
 import { addShoppingCart, getCartlist } from "@/api/request";
 
 export default {
   props: ["goodsInfo"],
-  created(){
-      
-    },
+  created() {},
   computed: {
-     ...mapGetters([
-        'cartList'
-      ]),
+    ...mapGetters(["cartList"]),
     count() {
       //页面刷新后 数据会消失,解决:加判断
-      return this.cartList.totalNum?this.cartList.totalNum:0;
+      return this.cartList.totalNum ? this.cartList.totalNum : 0;
     },
     productDatasView() {
       return this.$store.state.detail.productDatas.view;
@@ -46,7 +42,7 @@ export default {
       var select = this.colSelected;
       if (this.goodsInfo.attribute[0]) {
         var col = "";
-        this.goodsInfo.attribute[0].attr_value.map((item) => {
+        this.goodsInfo.attribute[0].attr_value.map(item => {
           if (item.attr_value_id == select) {
             col += item.attr_value_name;
           }
@@ -59,7 +55,7 @@ export default {
       var select = this.sizeSelected;
       if (this.goodsInfo.attribute[1]) {
         var size = "";
-        this.goodsInfo.attribute[1].attr_value.map((item) => {
+        this.goodsInfo.attribute[1].attr_value.map(item => {
           if (item.attr_value_id == select) {
             size += item.attr_value_name;
           }
@@ -70,43 +66,31 @@ export default {
   },
 
   methods: {
-    getCartlist(key){
-      getCartlist({key: key}).then(res => {
-              if (res.data.code == "1") {
-                let totalNum = 0;
-                let totalPrice = 0;
-                let d = res.data.data;
-                d.map(v => {
-                  totalNum = totalNum + v.number * 1;
-                  totalPrice = totalPrice + v.goods_price * 1;
-                });
-                let datas = {
-                  data: res.data.data,
-                  totalPrice: totalPrice, //总价格
-                  totalNum: totalNum //总数量
-                };
-                this.$store.dispatch("addCart", datas);
-              }
-            });
+    getCartlist(key) {
+      getCartlist({ key: key }).then(res => {
+        if (res.data.code == "1") {
+          this.$store.dispatch("addCart", res.data.data);
+        }
+      });
     },
     addcart(goods_id, attrvalue_id) {
       let key = getInfo();
 
-        var data = {
-          key: key,
-          num: "1",
-          goods_id: goods_id,
-          attrvalue_id: JSON.stringify([this.colSelected, this.sizeSelected])
-        };
-        addShoppingCart(data).then(res => {
-          if (res.data.code == "1") {
-            this.getCartlist(key)
-          }
-        });
+      var data = {
+        key: key,
+        num: "1",
+        goods_id: goods_id,
+        attrvalue_id: JSON.stringify([this.colSelected, this.sizeSelected])
+      };
+      addShoppingCart(data).then(res => {
+        if (res.data.code == "1") {
+          this.getCartlist(key);
+        }
+      });
     },
     addIntoCar() {
-      if(this.goodsInfo.attribute.length>0){
-        if(this.colSelected>0&&this.sizeSelected>0){
+      if (this.goodsInfo.attribute.length > 0) {
+        if (this.colSelected > 0 && this.sizeSelected > 0) {
           MessageBox.confirm(
             `名称:${this.goodsInfo.goods_name}</br>` +
               `价格:${this.goodsInfo.shop_price}</br>` +
@@ -118,23 +102,21 @@ export default {
             },
             function(err) {}
           );
-        }else{
-          Toast('请选择规格')
+        } else {
+          Toast("请选择规格");
         }
-        
-      }else{
+      } else {
         MessageBox.confirm(
-        `名称:${this.goodsInfo.goods_name}</br>` +
-          `价格:${this.goodsInfo.shop_price}</br>` +
-          `商品ID:${this.goodsInfo.goods_id}</br>`
-      ).then(
-        action => {
-          this.addcart(this.goodsInfo.goods_id, this.goodsInfo.attribute);
-        },
-        function(err) {}
-      );
+          `名称:${this.goodsInfo.goods_name}</br>` +
+            `价格:${this.goodsInfo.shop_price}</br>` +
+            `商品ID:${this.goodsInfo.goods_id}</br>`
+        ).then(
+          action => {
+            this.addcart(this.goodsInfo.goods_id, this.goodsInfo.attribute);
+          },
+          function(err) {}
+        );
       }
-      
     }
   }
 };

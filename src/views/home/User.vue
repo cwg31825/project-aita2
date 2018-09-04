@@ -87,7 +87,7 @@
       return {
          key:'',
         headerImage:'',
-        userData:'',
+        userData:this.$store.state.login.userData,
         service:{
           'list':[{
             'imgPath':'./static/index/order-type-11.png','name':'待付款','path': "/myOrder",'bool':false,'id':'1',
