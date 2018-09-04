@@ -2,7 +2,10 @@
 
 
   <div class="car">
-    <v-header :userData="userData"> <router-link to="/setting" slot="icon"><i class="iconfont icon-shezhi rt"></i></router-link></v-header>
+    <v-header :userData="userData"> 
+      <router-link to="/setting" slot="icon"><i class="iconfont icon-shezhi rt"></i>
+      </router-link>
+    </v-header>
      <v-service :serviceData="service.list"></v-service>
     <!--<i>-->
     <div class="main">

@@ -3,7 +3,9 @@
   <header class="header">
     <div class="header-icon-box">
       <div  class="show" v-if="userData">
+        <router-link to="/setting">
         <img :src="userData.headimg ? this.userData.headimg:avatar" class="picture"/>
+        </router-link>
       </div>
 
       <span v-if="!userData"><router-link to="/login">登录</router-link> / <router-link to="/register">注册</router-link></span>
