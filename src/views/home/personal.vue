@@ -56,7 +56,7 @@
     >
     </mt-datetime-picker>
     <mt-popup v-model="popupVisible" position="bottom" class="mint-popup">
-      <mt-picker :slots="slots" value-key="name" @change="onValuesChange" :visible-item-count="5" ></mt-picker>
+      <mt-picker :slots="slots" value-key="name" @change="onValuesChange" :visible-item-count="3" ></mt-picker>
     </mt-popup>
   <mt-actionsheet
   :actions="actions"
@@ -78,7 +78,7 @@ import {
 } from "@/api/user";
 import Utils from "@/utils/common";
 import moment from "moment";
-import { Actionsheet } from 'mint-ui';
+import { Actionsheet } from "mint-ui";
 export default {
   components: {},
   data() {
@@ -95,23 +95,23 @@ export default {
       slots: [
         {
           flex: 1,
-          values: [
-            { name: "请选择", id: "0" },
-            { name: "男", id: "1" },
-            { name: "女", id: "2" }
-          ],
+          values: [{ name: "男", id: "1" }, { name: "女", id: "2" }],
           className: "slot1",
+          defaultIndex: this.$store.state.login.userData.sex == "1" ? 0 : 1,
           textAlign: "center"
         }
       ],
       // action sheet 选项内容
-      actions: [{
-        name: '拍照',
-        method : this.getCamera	// 调用methods中的函数
-      }, {
-        name: '从相册中选择', 
-        method : this.getLibrary	// 调用methods中的函数
-      }],
+      actions: [
+        {
+          name: "拍照",
+          method: this.getCamera // 调用methods中的函数
+        },
+        {
+          name: "从相册中选择",
+          method: this.getLibrary // 调用methods中的函数
+        }
+      ],
       // action sheet 默认不显示，为false。操作sheetVisible可以控制显示与隐藏
       sheetVisible: false,
       popupVisible: false,
@@ -126,13 +126,10 @@ export default {
   },
   created() {
     this.userData = this.$store.state.login.userData;
-    this.sex.name = this.userData.sex == "2" ? "女" : "男";
-          this.dates = moment(new Date(this.userData.birthday)).format(
-            "YYYY-MM-DD"
-          );
-          this.headerImage = this.userData.headimg
-            ? this.userData.headimg
-            : "./static/index/2@2x.png";
+    this.dates = moment(new Date(this.userData.birthday)).format("YYYY-MM-DD");
+    this.headerImage = this.userData.headimg
+      ? this.userData.headimg
+      : "./static/index/2@2x.png";
   },
   methods: {
     /*
@@ -196,6 +193,7 @@ export default {
       };
       userInfo(data).then(res => {
         if (res.data.code == "1") {
+          this.userData = res.data.data;
           this.$store.commit("SET_USERDATA", res.data.data);
         }
       });
@@ -224,21 +222,24 @@ export default {
         picker.setSlotValue(1, values[0]);
       }
       this.sex = { id: values[0].id, name: values[0].name };
+      if (this.sex.id != this.userData.sex) {
+        this.editSex(this.sex.id);
+      }
     },
     showSex() {
       this.popupVisible = true;
     },
-    actionSheet: function(){
-    	// 打开action sheet
+    actionSheet: function() {
+      // 打开action sheet
       this.sheetVisible = true;
     },
-    getCamera: function(){
-      console.log("打开照相机")
-      this.cameraTakePicture(1)
+    getCamera: function() {
+      console.log("打开照相机");
+      this.cameraTakePicture(1);
     },
-    getLibrary: function(){
-      console.log("打开相册")
-      this.cameraTakePicture(2)
+    getLibrary: function() {
+      console.log("打开相册");
+      this.cameraTakePicture(2);
     },
     editSex(id) {
       var data = {
@@ -250,14 +251,6 @@ export default {
           this.userinfo();
         }
       });
-    }
-  },
-  watch: {
-    // 监控a变量变化的时候，自动执行此函数
-    sex: function(val, oldVal) {
-      if (oldVal.id) {
-        this.editSex(this.sex.id);
-      }
     }
   }
 };
