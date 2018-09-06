@@ -13,7 +13,7 @@ export const submitOrder = (data) => {
 export const initPay = (data) => {
   let req = {
     data,
-    url: '//openapi.alipay.com/gateway.do'
+    url: 'order/pay'
   }
   return _post(req);
 }
@@ -27,14 +27,6 @@ export const requestPay = (data) => {
   return _post(req)
 }
 
-//监听扫码支付状态
-export const listenStatus = (data) => {
-  let req = {
-    data,
-    url: 'v1/listen_status'
-  }
-  return _get(req)
-}
 
 //获取订单信息
 export const orderInfo = (data) => {

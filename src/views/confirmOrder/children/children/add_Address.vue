@@ -24,6 +24,7 @@
         formData: {
           key:getInfo(),
           address_id:this.$route.params.id?this.$route.params.id:'',
+          area:'',
           username:'',
           address_p:'',
           telnumber:''
@@ -56,6 +57,7 @@ this.getAddrdetail(id)
             this.formData= {
               key:getInfo(),
               address_id:id,
+              area:res.data.data.area,
               username:res.data.data.username,
               address_p:res.data.data.address,
               telnumber:res.data.data.telnum,
@@ -71,16 +73,21 @@ this.getAddrdetail(id)
           return
         }
 
-          this.preventRepeat = true;
+          
           let {location} = this.deliveryAddress
           let form = {...this.formData, ...location};
-          
-          add_address(form).then((res) => {
+          if(form.username&&form.telnumber&&form.address_p){
+            this.preventRepeat = true;
+            add_address(form).then((res) => {
             if (res.data.code == '1') {
               this.$router.go(-1);
             }
             this.preventRepeat = false;
           })
+          }else{
+            alert('收货人信息不完整')
+          }
+          
 
       }
     },

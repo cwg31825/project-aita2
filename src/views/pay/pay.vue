@@ -25,13 +25,14 @@
       </div>
     </div>
 <!--支付方式-->
+{{payType}}
     <ul class="pay-way">
-      <li @click="payType = '1'">
+      <li @click="payType = '4'">
         <span class="pay-way-name"> 
     <img src="../../assets/pay/sytjm.png" class="img-fluid" alt="">
         </span>
         
-        <span class="selected" v-if="payType === '1'">
+        <span class="selected" v-if="payType === '4'">
           <img src="../../assets/pay/select.png" class="img-fluid" alt="">
           </span>
         <span class="select" v-else></span>
@@ -49,7 +50,7 @@
     <mt-button size="large" type="primary" @click="submit()">确定支付</mt-button>
     
     <!--调用app支付-->
-    <form action="http://pay.trsoft.xin/order/trpayGetWay" method="post" id="form" ref="form">
+    <!-- <form action="http://pay.trsoft.xin/order/trpayGetWay" method="post" id="form" ref="form">
       <input type="hidden" name="amount" v-model=form_data.amount>
       <input type="hidden" name="outTradeNo" v-model="form_data.outTradeNo">
       <input type="hidden" name="payType" v-model="payType">
@@ -62,14 +63,13 @@
       <input type="hidden" name="sign" v-model="form_data.sign">
       <input type="hidden" name="timestamp" v-model="form_data.timestamp">
       <input type="hidden" name="version" v-model="form_data.version">
-    </form>
+    </form> -->
     <alert-tip :text="alertText" :showTip.sync="showTip"></alert-tip>
   </div>
 </template>
 
 <script>
 import Utils from '@/utils/common'
-  import scan from './scan.vue'
   import {initPay, orderInfo} from '@/api/order'
   import {requestPay} from '@/api/order'
 import { getInfo } from "@/utils/auth";
@@ -93,7 +93,7 @@ import { getInfo } from "@/utils/auth";
         },
         order_info: null,
         order_id: null,
-        payType: '1',  //支付渠道
+        payType: '4',  //支付渠道
         form_data: {},
         seconds: '',  //倒计时秒
         minutes: '',   //倒计时分
@@ -118,58 +118,18 @@ import { getInfo } from "@/utils/auth";
           return;
         }
         this.preventRepeat = true;    //防止多次点击
-        let biz_content = {
-            body:"对一笔交易的具体描述信息。如果是多种商品，请将商品描述字符串累加传给body。",
-            subject:"大乐透",
-            out_trade_no:"70501111111S001111119",
-            timeout_express:"90m",
-            total_amount:9.00,
-            product_code:"QUICK_WAP_WAY"
-          }
         let data = {
-          timestamp:'2013-01-01 08:08:08',
-          method:'alipay.trade.wap.pay',
-          app_id:'1990',
-          sign_type:'RSA2',
-          sign:'ERITJKEIJKJHKKKKKKKHJEREEEEEEEEEEE',
-          version:'1.0',
-          biz_content:JSON.stringify(biz_content)
-          }
+          key:getInfo(),
+          type:this.payType,
+          order_id:this.order_id
+        }
+        initPay(data).then((res) => {
           
-          ap.tradePay({
-            orderStr: Utils.toQueryString(data)
-          }, function(res){
-            ap.alert(res.resultCode);
-          });
-        initPay(data).then((response) => {
-          let res = response.data;
-          
-          this.preventRepeat = false;
-          if (res.status === -1) {                //支付接口出错
-            this.alertText = res.message;      //提示
-            this.showTip = true;
-            return;
-          }
-           if (res.status === 301){
-            this.alertText = res.message;      //提示
-            this.showTip = true;
-           }
-          if (res.status === 302) {   //判断该订单是否已经支付完成
-            let _this = this;
-            this.alertText = res.message;      //提示
-            this.showTip = true;
-            setTimeout(() => {
-              _this.$router.push('/order');
-            }, 1000)
-            return;
-          }
            //调起APP支付
-            this.form_data = response.data.data
+            this.form_data = res.data.data
             this.$nextTick(() => {
               this.$refs['form'].submit();
             })
-
-
         })
       },
       calc_remain_time(remain_time) {   //倒计时
@@ -213,17 +173,12 @@ import { getInfo } from "@/utils/auth";
         }, 1000)
       })
     },
-    components: {
-      scan
-    }
   }
 </script>
 
 <style lang="less" scoped>
 
   #pay {
-    width: 100vw;
-    height: 100vh;
     background: #f3f3f6;
     padding-top: 12vw;
     .img {

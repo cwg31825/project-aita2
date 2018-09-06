@@ -79,11 +79,10 @@ export default {
     background-repeat: repeat-x;
   }
   .item.off{
-    background-image: -webkit-linear-gradient(top, #fafafa, #fafafa 0%, transparent 100%);
-    background-image: linear-gradient(0deg, #fafafa, #fafafa 0%, transparent 100%);
+    background-image: -webkit-linear-gradient(top, #ffffff, #ffffff 0%, transparent 100%);
+    background-image: linear-gradient(120deg, #ffffff, #ffffff 0%, transparent 100%);
   }
   .item {
-    background: #fff;
     margin-bottom: 10px;
     padding: 6px 0 6px;
     font-size: 14px;

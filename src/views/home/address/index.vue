@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       title: this.$route.name,
-      btnText: "添加新地址",
+      btnText: "",
       list: [],
       options: [],
       value: []
@@ -75,7 +75,7 @@ export default {
 @import "//at.alicdn.com/t/font_687988_72mjq1o2tsi.css";
 .address {
   height: 100%;
-  padding-top: 12vw;
+  padding-top: 14vw;
   .no {
     text-align: center;
     img {

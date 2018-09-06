@@ -26,7 +26,6 @@
           <transition name="fade">
             <linkage @getLinkage='_showChildMsg' v-show="showLinkage" :formData="formData"></linkage>
           </transition>
-
     </form>
   </div>
 </template>
@@ -34,22 +33,23 @@
 <script>
 
 import Linkage from '@/common/_linkage.vue' //引入子组件
+import { timeout } from 'async';
 
 export default {
   props: ["formData"],
   components:{
-    Linkage, //注册子组件
+    Linkage, //注册子组件 
   },
   data() {
     return {
       showLinkage:false, //控制子组件的显示隐藏
-        result:'请选择所在省市',
+        result:'请选择所在省市'
     };
   },
+
   methods: {
     _showChildMsg(msg){ //接收子组件数据
-
-     this.$store.dispatch('recodeDeliveryAddress', {location:msg.id})
+    this.$store.dispatch('recodeDeliveryAddress', {location:msg.id})
       this.result = msg.region_name
       this.showLinkage=false
     },
@@ -60,6 +60,7 @@ export default {
   watch: {
     formData(val) {
       this.$emit("update:formData", val);
+      this.result=this.formData.area
     }
   },
 };
@@ -69,100 +70,14 @@ export default {
 @import "//at.alicdn.com/t/font_687988_72mjq1o2tsi.css";
 
 #address-info {
-  .getCity{
-  font-size: 20px;
-}
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-.fade-enter, .fade-leave-to  {
-  opacity: 0;
-}
+ 
   form {
     h3 {
-      font-size: 0.3rem;
+      font-size: 0.4rem;
       font-weight: 600;
       margin: 0.4rem 0.2rem;
     }
-    .name,
-    .phone,
-    .location,
-    .house-number {
-      background: #fff;
-      border-bottom: 1px solid;
-    }
-    label {
-      //@include px2rem(line-height, 85);
-      float: left;
-      font-size: 0.4rem;
-      font-weight: 600;
-      margin-left: 0.2rem;
-    }
-    .input-container {
-      display: block;
-      margin-left: 3rem;
-    }
-    input {
-      width: 100%;
-      //@include px2rem(height, 85);
-      border: none;
-      font-size: 0.45rem;
-      text-indent: 10px;
-      outline: none;
-      &::-webkit-input-placeholder {
-        font-size: 0.4rem;
-        color: #9d9d9d;
-      }
-    }
-    /*定位*/
-    .location {
-      font-size: 0.4rem;
-      .select-address-container {
-        //@include px2rem(line-height, 85);
-        .icon-right {
-          float: right;
-          margin-right: 10px;
-        }
-      }
-      .to-locate {
-        flex: 1;
-        color: #9d9d9d;
-      }
-    }
-    /*选择性别*/
-    .gender {
-      text-align: center;
-      padding: 0.1rem 0;
-      background: #fff;
-      border-bottom: 1px solid;
-      div {
-        display: inline-block;
-        margin: 0.5rem 0.5rem;
-        .iconfont,
-        .circle {
-          //@include px2rem(width, 36);
-          //@include px2rem(height, 36);
-          display: inline-block;
-          color: #fff;
-          border-radius: 50%;
-          vertical-align: middle;
-        }
-        span {
-          font-size: 0.4rem;
-          font-weight: 600;
-          margin: 0 0.1rem;
-        }
-        .iconfont {
-          //background: ;
-          font-size: 0.6rem;
-          //@include px2rem(line-height, 36);
-          text-align: center;
-        }
-        .circle {
-          border: 1px solid;
-        }
-      }
-    }
+    
   }
 }
 </style>

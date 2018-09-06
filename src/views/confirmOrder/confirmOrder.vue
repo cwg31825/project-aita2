@@ -178,74 +178,21 @@ export default {
 @import "../../assets/fz.less";
 #confirm-order {
   color: #222;
-  height: 100%;
   background-color: @color-back-gr;
   color: @col-text-gr;
   padding-top: 12vw;
   z-index: 100;
-  .icon-right {
-    font-size: 0.4rem;
-  }
-
   .mint-cell-wrapper {
     .iconfont {
       margin: 0 0.1rem;
       font-size: 1rem;
     }
   }
-  .address-container {
-    border-bottom: 1px solid;
-  }
-  .address-info,
-  .arrival-info {
-    display: flex;
-    align-items: center;
-  }
-  .address-info {
-    .address {
-      font-size: 0.4rem;
-    }
-    .name,
-    .gender,
-    .phone {
-      font-size: 0.2rem;
-      //color: ;
-    }
-    .phone {
-      margin-left: 0.5rem;
-    }
-    .add-text {
-      // color: ;
-      font-size: 0.4rem;
-    }
-    .icon-add {
-      font-size: 0.3rem;
-      padding: 0.05rem;
-      border-radius: 50%;
-      //background: ;
-      color: #fff;
-    }
-  }
-  .arrival-info {
-    display: flex;
-    align-items: center;
-    .main-info {
-      display: flex;
-    }
-    .date-type-tip {
-      font-size: 0.4rem;
-      font-weight: 500;
-    }
-    .select-view-time {
-      font-size: 0.4rem;
-      margin-left: 0.1rem;
-      color: #368ced;
-    }
-  }
+
 
   /*商品部分样式*/
   .container {
-    margin: 0.21rem 0;
+    margin: 0;
     padding: 0 0.1rem 1rem;
     background: #fbfbfb;
     -webkit-box-sizing: border-box;
@@ -256,8 +203,7 @@ export default {
     .food-list {
       li {
         display: flex;
-        padding: 0.2rem 0.4rem;
-        margin-top: 0.4rem;
+        padding: 0.4rem;
         background: #fff;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
@@ -276,12 +222,10 @@ export default {
             justify-content: space-between;
             margin-left: 0.2rem;
             .name {
-              font-size: 0.4rem;
+              font-size: 1rem;
               font-weight: 500;
               i {
                 display: inline-block;
-                // @include px2rem(width, 30);
-                // @include px2rem(height, 30);
                 margin: 0 0.3rem;
                 background-size: cover;
                 vertical-align: middle;
