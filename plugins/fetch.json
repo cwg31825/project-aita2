@@ -38,5 +38,25 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-customurlscheme": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-customurlscheme"
+    },
+    "is_top_level": true,
+    "variables": {
+      "URL_SCHEME": "myaita"
+    }
+  },
+  "cordova-plugin-alipay-v2": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-alipay-v2"
+    },
+    "is_top_level": true,
+    "variables": {
+      "APP_ID": "[2018082061140047]"
+    }
   }
 }

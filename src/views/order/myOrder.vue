@@ -66,7 +66,12 @@ export default {
     },
     watch: {
       newValue(val){
-          this.ordersList(val)
+        if (val==8) {
+          this.ordersList(val+',3,4,5')
+        }else{
+        this.ordersList(val)
+        }
+          
         }
     }
 };

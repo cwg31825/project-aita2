@@ -17,16 +17,14 @@ export const initPay = (data) => {
   }
   return _post(req);
 }
-
 //请求支付
 export const requestPay = (data) => {
   let req = {
     data,
-    url: '//pay.ispay.cn/core/api/request/pay/'
+    url: '//openapi.alipaydev.com/gateway.do'
   }
   return _post(req)
 }
-
 
 //获取订单信息
 export const orderInfo = (data) => {
@@ -72,6 +70,3 @@ export const backgoods = (data) => {
   }
   return _post(req)
 }
-
-
-

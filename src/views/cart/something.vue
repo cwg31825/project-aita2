@@ -3,7 +3,7 @@
   <div class="wrap">
     <ul class="something" v-if='list'>
         <li v-for="(k, i) in list.data">
-          <div class="something-left" @click.stop="aa(k,k.choseBool,i)">
+          <div class="something-left" @click.stop="checkGoods(k,k.choseBool,i)">
             <label class="true" :class="{false:!k.choseBool}">
               <input type="checkbox" v-model="k.choseBool">
             </label>
@@ -13,8 +13,7 @@
           </div>
           <div class="something-right">
              <router-link :to="{name:'详情页',params:{id:k.goods_id}}">{{k.goods_name}}</router-link>
-            <!-- <p style="color:rgb(199, 108, 28)"> {{k.col}} - {{k.size}}</p> -->
-            <p>售价：{{k.goods_price}}元 * {{k.number}}</p>
+            <p style="color:rgb(199, 108, 28);">{{k.goods_price}} * {{k.number}}</p>
             <div class="something-right-bottom" @click="delcart(k.rec_id)">
               <span></span>
             </div>
@@ -61,9 +60,11 @@ export default {
         }
       });
     },
-    aa(k,b,i) {
+    // 勾选商品 
+    checkGoods(k,b,i) {
         let food = new Array();　//创建一个数组
         if(b==true){
+          
             this.totalPrice -= k.number * k.goods_price;  //修改价格
             this.number -= k.number*1
             let row 
@@ -208,8 +209,8 @@ export default {
             position: absolute;
             right: 0;
             bottom: 0;
-            width: 13vw;
-            height: 13vw;
+            width: 12vw;
+            height: 12vw;
             background: url("../../assets/car/images/laji.svg") no-repeat
               center/50%;
           }

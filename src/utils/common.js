@@ -1,7 +1,7 @@
 const STORAGE_USER_KEY = 'STORAGE_USER_KEY'
 // const STORAGE_CARTLIST_KEY = 'STORAGE_CARTLIST_KEY'
 // const STORAGE_QUERYMYLIST_KEY = 'STORAGE_QUERYMYLIST_KEY'
-
+import { JSEncrypt } from "jsencrypt";
 export default {
   // 获取
   getLocal (key = STORAGE_USER_KEY) {
@@ -169,6 +169,40 @@ export default {
     return key;
   }
   return key + '=' + encodeURIComponent(value === null ? '' : String(value));
+},
+ //RSA加密
+ encrypt(params) {
+  let publicKey = `-----BEGIN RSA PRIVATE KEY-----
+  MIIEowIBAAKCAQEA4SpV55MWyurkPEPaTOUYjobEi1L2Gx2VxfCJeK6wUZO/uyOZ
+  goRz7wdt8KJHqe9wliA+QjTWJYNJ2wy5ZZ55X/6QY6xgVdSQrnkGlAM5pjqlk8Bp
+  ObhpV/IlSUauuBGRHuZuer/tfDfOhtaNi5ez/MAMrFKIQYFmgq0CqzYLgsEG7UJ+
+  iwMOUBy9A692i0eveijS/TZbClYfWrBCTe1jId0UV00Hu8xxk2Kq1UJRtCyars7z
+  8zeLc+OYG/GiMXk/VW7pAD0pOVUm4NA25BQmHuC72UAjG8kEybZxey7gWyDLQIu2
+  1OBz2qL7Nvh2GSpjdTJ3Q36Ga50YCrHJ7pIPfQIDAQABAoIBABpedd7/18x9w6rX
+  G2qj7cNLPxs95Pp59X9P0xmiA54aGnsVCTZCwrz8dsCWkKPzGZFLR19Dhsyv2mdf
+  zxp6e6ZlTo2Ns1553VPBcqbE1eyEs71g7DHJSfT1s64oK+/8hq1CuS+A6JQCiRo7
+  aCov4vE3oIRRygk52UJ2dniMhL6UGh91mnnYT2hE2pPMdurSQ06hdS569B2WC+Ox
+  Jb34vz+oALhimgpot/MTIu9gvuwBvBoxU5IQ2W9/XCDoXAL5CWxpru4KB1vrqTac
+  pUE+PGQ28oc7jzikSdh0YgMzvGsbQDlwdDHU6NlD+21UarkHw5qIgF4G0C3m3271
+  M1DzpQECgYEA/05XMVZYmjhMxF7Epr1KNOcgj1vR6UmVtPGgLFLKQd7aOCTGVYes
+  xhJQURYf4UfjUbwJ+UZaZkLndwJEJbXyV6vLtWHyIKPR25H/VdEbV+s5Z3KhR5+P
+  8dstYTm81p0wRezI4cxcZksVL4BzQYCuldIrzKWkr73nxyZS9z5CpD0CgYEA4ccF
+  Yyv3oO+tdDPxObKIboDck0jL/e0bwmBbHshjTDWpJ+Z/z45B0ESyOJMVSYoM6J8R
+  PJrnoqlWM02g6gJpxdNccbOKqWPyVCNK1Gckx5UbFI2knNZ29vSZMRdCfIWdJ89a
+  LR1K5KDWYve8EqASg3qHjb8zMJz+4tN4uxF5jEECgYEA55bv3zBdVSAG+wagSkRh
+  IRYb4g8/negDJk0cp7g+Anyd5NnvE7zsDAym0LdKGfg1C3qQbY/VBvhfsQPcP30J
+  pV+QfSupENSp1Axe20DBFgKpYt6H0Em8sH7KbmyKkP+rv3JoUvMnSh+Hyzww0NVj
+  CULKOmxztHuG2Y85KVBP8V0CgYAgO1Vdjw1PAGh2ymOJpR8tB2B19lKI8ayg1ziq
+  8FicrJx1gcaFTv2+SdBXm0fSs86b9vly+XpQEnSn5lEulyGaiE4OPV9yRz51HIS2
+  RfNOOs8e5Am4CjX5k3m7NGLdfAWvhT6Oajwi34M7pbpHvmpmMrvfVIhuTDtnDmGR
+  8zCzAQKBgEGYizj5ZooMSWJsQBmbxbgYM7OFL0ySrcdGw641bAnUT5lvHRlcX6Zm
+  Mvva11hg+XGeh3Dzn8ZGKyfT1UV6O3bVcedbyRiUA+vMqo0Sj0VEmJUAdQvZXyHv
+  htyHUzI+kDwyjUnPjGzMC1Bk9NpgueyBTNLD9VOJZIw7QPQhAy9m
+  -----END RSA PRIVATE KEY-----
+  `;
+  let jsEncrypt = new JSEncrypt();
+  jsEncrypt.setPublicKey(publicKey);
+  return jsEncrypt.encrypt(params);
 }
 }
 

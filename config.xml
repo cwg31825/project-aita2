@@ -42,6 +42,15 @@
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.1" />
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
+    <plugin name="cordova-plugin-customurlscheme" spec="^4.3.0">
+        <variable name="URL_SCHEME" value="myaita" />
+        <variable name="ANDROID_SCHEME" value=" " />
+        <variable name="ANDROID_HOST" value="aita2" />
+        <variable name="ANDROID_PATHPREFIX" value="/" />
+    </plugin>
     <engine name="ios" spec="4.5.5" />
     <engine name="android" spec="7.0.0" />
+    <plugin name="cordova-plugin-alipay-v2" spec="^1.0.0">
+        <variable name="APP_ID" value="[2018082061140047]" />
+    </plugin>
 </widget>

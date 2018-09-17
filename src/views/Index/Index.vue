@@ -6,6 +6,7 @@
     
     <v-service :serviceData="service.list"></v-service>
     <v-message :marqueeList="message.data"></v-message>
+    <mt-button size="large" type="primary" @click="ready()">234234234</mt-button>
     <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" @top-status-change="handleTopChange" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
        <div slot="top" class="mint-loadmore-top">
             <span v-show="topStatus === 'pull'" :class="{ 'rotate': topStatus === 'drop' }">↓</span>
@@ -25,6 +26,8 @@ import Service from "@/components/index/service.vue";
 import message from "@/components/index/message.vue";
 import { Loadmore } from "mint-ui";
 import { getIndex, getNotice } from "@/api/request";
+import Util from '@/utils/common'
+import qs from 'qs'
 export default {
   components: {
     "v-swiper": Swiper,
@@ -68,6 +71,27 @@ export default {
     };
   },
   methods: {
+    ready() {
+
+      let datas = {
+        app_id:'2018082061140047',
+        method:'alipay.trade.app.pay',
+        charset:'UTF-8',
+        sign_type:'RSA2',
+        timestamp:'',
+        notify_url:'http://119.254.209.180:81/index.php/Payment/callback',
+        version:'1.0'
+      }
+      let s = qs.stringify(datas)
+      datas.sign = Util.encrypt(s)
+      let payInfo = qs.stringify(datas)
+      cordova.plugins.alipay.payment(payInfo,
+      function success(e){
+        console.log(e)
+      },function error(e){
+console.log(e)
+      });
+    },
     loadTop() {
       // 刷新数据的操作
       this.getList();
