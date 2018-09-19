@@ -45,8 +45,7 @@
 <script>
 import qs from 'qs';
 import Utils from "@/utils/common";
-import { initPay, orderInfo } from "@/api/order";
-import { requestPay } from "@/api/order";
+import { webPay,appPay, orderInfo } from "@/api/order";
 import { getInfo } from "@/utils/auth";
 
 export default {
@@ -107,20 +106,47 @@ export default {
         this.showTip = true;
         return;
       }
-      //this.preventRepeat = true; //防止多次点击
-      let data = {
+     this.preventRepeat = true; //防止多次点击
+     
+      //if(this.payType=='2'){
+        let data = {
         key: getInfo(),
-        type: this.payType,
         order_id: this.order_id
       };
-      initPay(data).then(res => {
-        //调起APP支付
-        const div = document.createElement('div')
-        div.innerHTML = res.data //后台返回接收到的数据
-        document.body.appendChild(div)
-       // console.log(res.data)
-        document.forms[0].submit()
-      });
+        appPay(data).then(res => {
+                //调起APP支付
+                let payInfo = res.data
+                var _this = this
+                //console.log(payInfo)
+                cordova.plugins.alipay.payment(payInfo,
+                function success(e){
+                  if(e.resultStatus==9000){
+                    _this.$router.replace({ name: "待收货",params:{id:8} });
+                  }else{
+                    alert(e.resultStatus+e.memo)
+                  }
+                  
+                },
+                function error(e){
+                  alert('2='+e.resultStatus+e.memo)
+                });
+              });
+//       }else{
+// let data = {
+//         key: getInfo(),
+//         type: this.payType,
+//         order_id: this.order_id
+//       };
+//       webPay(data).then(res => {
+//         //调起APP支付
+//         const div = document.createElement('div')
+//         div.innerHTML = res.data //后台返回接收到的数据
+//         document.body.appendChild(div)
+//        //console.log(res.data)
+//        document.forms[0].submit()
+//       });
+//       }
+      
     },
 
     calc_remain_time(remain_time) {

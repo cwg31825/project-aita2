@@ -218,27 +218,21 @@ export default new Router({
       path: '/myOrder',
       name: '待付款',
       component: MyOrder,
+      meta: {
+        requireAuth: true,
+    }
     }, {
       path: '/myOrder',
       name: '待收货',
       component: MyOrder,
-      meta: {
-        requireAuth: true,
-    }
     }, {
       path: '/myOrder',
       name: '已完成',
       component: MyOrder,
-      meta: {
-        requireAuth: true,
-    }
     }, {
       path: '/myOrder',
       name: '全部订单',
       component: MyOrder,
-      meta: {
-        requireAuth: true,
-    }
     }, {
       path: '/orderDetail',
       name: '订单详情',

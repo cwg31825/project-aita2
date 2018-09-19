@@ -144,20 +144,18 @@ export default {
     */
     cameraTakePicture(mySourceType) {
       const options = {
-        quality: 50, // 0-100, 默认的100是最高质量的
+        quality: 95, // 0-100, 默认的100是最高质量的
         destinationType: Camera.DestinationType.DATA_URL,
         sourceType: mySourceType,
         encodingType: Camera.EncodingType.JPEG,
         correctOrientation: true,
         allowEdit: true,
-        targetWidth: 200,
-        targeHeight: 200
+        targetWidth: 512,
       };
       let self = this;
       // 打开图片库
       navigator.camera.getPicture(onSuccess, onFail, options);
       function onSuccess(imageData) {
-        //判断图片是否大于100K,是就直接上传，反之压缩图片
         self.postImg(imageData);
         this.TakePictureType = false;
       }

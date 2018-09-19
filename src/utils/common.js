@@ -3,6 +3,28 @@ const STORAGE_USER_KEY = 'STORAGE_USER_KEY'
 // const STORAGE_QUERYMYLIST_KEY = 'STORAGE_QUERYMYLIST_KEY'
 import { JSEncrypt } from "jsencrypt";
 export default {
+  formatDate(date, fmt) {
+    if (/(y+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+    }
+    let o = {
+        'M+': date.getMonth() + 1,
+        'd+': date.getDate(),
+        'h+': date.getHours(),
+        'm+': date.getMinutes(),
+        's+': date.getSeconds()
+    };
+    for (let k in o) {
+        if (new RegExp(`(${k})`).test(fmt)) {
+            let str = o[k] + '';
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : this.padLeftZero(str));
+        }
+    }
+    return fmt;
+},
+padLeftZero(str) {
+  return ('00' + str).substr(str.length);
+},
   // 获取
   getLocal (key = STORAGE_USER_KEY) {
     // console.log('get local operation')
@@ -172,34 +194,31 @@ export default {
 },
  //RSA加密
  encrypt(params) {
-  let publicKey = `-----BEGIN RSA PRIVATE KEY-----
-  MIIEowIBAAKCAQEA4SpV55MWyurkPEPaTOUYjobEi1L2Gx2VxfCJeK6wUZO/uyOZ
-  goRz7wdt8KJHqe9wliA+QjTWJYNJ2wy5ZZ55X/6QY6xgVdSQrnkGlAM5pjqlk8Bp
-  ObhpV/IlSUauuBGRHuZuer/tfDfOhtaNi5ez/MAMrFKIQYFmgq0CqzYLgsEG7UJ+
-  iwMOUBy9A692i0eveijS/TZbClYfWrBCTe1jId0UV00Hu8xxk2Kq1UJRtCyars7z
-  8zeLc+OYG/GiMXk/VW7pAD0pOVUm4NA25BQmHuC72UAjG8kEybZxey7gWyDLQIu2
-  1OBz2qL7Nvh2GSpjdTJ3Q36Ga50YCrHJ7pIPfQIDAQABAoIBABpedd7/18x9w6rX
-  G2qj7cNLPxs95Pp59X9P0xmiA54aGnsVCTZCwrz8dsCWkKPzGZFLR19Dhsyv2mdf
-  zxp6e6ZlTo2Ns1553VPBcqbE1eyEs71g7DHJSfT1s64oK+/8hq1CuS+A6JQCiRo7
-  aCov4vE3oIRRygk52UJ2dniMhL6UGh91mnnYT2hE2pPMdurSQ06hdS569B2WC+Ox
-  Jb34vz+oALhimgpot/MTIu9gvuwBvBoxU5IQ2W9/XCDoXAL5CWxpru4KB1vrqTac
-  pUE+PGQ28oc7jzikSdh0YgMzvGsbQDlwdDHU6NlD+21UarkHw5qIgF4G0C3m3271
-  M1DzpQECgYEA/05XMVZYmjhMxF7Epr1KNOcgj1vR6UmVtPGgLFLKQd7aOCTGVYes
-  xhJQURYf4UfjUbwJ+UZaZkLndwJEJbXyV6vLtWHyIKPR25H/VdEbV+s5Z3KhR5+P
-  8dstYTm81p0wRezI4cxcZksVL4BzQYCuldIrzKWkr73nxyZS9z5CpD0CgYEA4ccF
-  Yyv3oO+tdDPxObKIboDck0jL/e0bwmBbHshjTDWpJ+Z/z45B0ESyOJMVSYoM6J8R
-  PJrnoqlWM02g6gJpxdNccbOKqWPyVCNK1Gckx5UbFI2knNZ29vSZMRdCfIWdJ89a
-  LR1K5KDWYve8EqASg3qHjb8zMJz+4tN4uxF5jEECgYEA55bv3zBdVSAG+wagSkRh
-  IRYb4g8/negDJk0cp7g+Anyd5NnvE7zsDAym0LdKGfg1C3qQbY/VBvhfsQPcP30J
-  pV+QfSupENSp1Axe20DBFgKpYt6H0Em8sH7KbmyKkP+rv3JoUvMnSh+Hyzww0NVj
-  CULKOmxztHuG2Y85KVBP8V0CgYAgO1Vdjw1PAGh2ymOJpR8tB2B19lKI8ayg1ziq
-  8FicrJx1gcaFTv2+SdBXm0fSs86b9vly+XpQEnSn5lEulyGaiE4OPV9yRz51HIS2
-  RfNOOs8e5Am4CjX5k3m7NGLdfAWvhT6Oajwi34M7pbpHvmpmMrvfVIhuTDtnDmGR
-  8zCzAQKBgEGYizj5ZooMSWJsQBmbxbgYM7OFL0ySrcdGw641bAnUT5lvHRlcX6Zm
-  Mvva11hg+XGeh3Dzn8ZGKyfT1UV6O3bVcedbyRiUA+vMqo0Sj0VEmJUAdQvZXyHv
-  htyHUzI+kDwyjUnPjGzMC1Bk9NpgueyBTNLD9VOJZIw7QPQhAy9m
-  -----END RSA PRIVATE KEY-----
-  `;
+  let publicKey = `MIIEowIBAAKCAQEArpYtq59Sd+XavUZJ11wvEOxGODlXtPcc8xEVsEbPHYrzu5km
+  HYUVV38lD7sv1QlS5gEAK5OOs2wZX1x63EDEldEeP2JF2hbWeS9e3wrljN0+d0aj
+  obXfvg3Cd6NXdeIKspFQtoQSz3W1NIRigfdREipXWZezE3MCynnY7HUsVJ76pTzb
+  6KJrGhNFBgwjfzIg8mdcm6+ivesVSVnXB/z2tcYLbc8AlL99EuGIgQQjlXHHUFIa
+  mzBdvCQhyfvbUwLhsJdxbsVNMfoaw3F2rmQ1BFWkbCedVZMh7lPoU5t5sqy2qfDa
+  2nR7JLqwfCngH+WC4QSsBbtAtxxmjMIgtuP36QIDAQABAoIBAFFz33riqicmJheI
+  Y4sGhy7uDRTOLA1R/T+qCORlJNwzp+MuYIoFPR/FQhVEz9wkrXiBnwK1pS4wkOXc
+  z7VSwmTjW6lWwCAv54BCiZCmFNLTpgEgA9e+ctTItqH6oyNsgnEtOursU5pW4GPQ
+  H+Vi7X/8ISS7keDRF8w/bOVlBXm0rLrR6gKVV6GVc7H48zdBgZKrUQriHhsg4lQD
+  /ZrLRQggGoFKM4q2yJqUtFv0iFf8OSyG0+VtJ2zwHpsF7adGbFBrO9Im7Eyd6Aon
+  eA0/gG6l8Z50ocIEP8ITqaFpZ0m8s4HiqVB/DgFSqgHYwjSbmX6l81jTh1kZhJpy
+  StOcOcECgYEA4Jep4/J6eUbrLs3h0EmrE8nlJStBJxshAZDolbJC9Bd5Gfotr8Ri
+  s/2IVqJR5ENhfuR3yUOwBAWrbnJHasvu1djy2GHecJL6xtVyJT6gqkYMoqJwz3i5
+  rvIB/bBXepMKw3biGPKvNYsN246pQ3yV24l/6danxQVdakokBJXVJlMCgYEAxwBS
+  wr3Dhaj7s4/N2SssSSNPagZOyvbKolkknaT1Fq8i/cOzF5JAfetw6jHyHGLFQT+C
+  +LDYQWGcXx8infbEk8F55UvXM4hFwKOE2+m9Q+Stvl5b17hclRfA31evoOwoeF5o
+  0dH/sQi5Mf45ccrZHSRZmzYeVSRGksysiJad6VMCgYBCLm7xrNJKSoujDygrqImx
+  Gx1bBpP8YhIn0/u1oQH5y7Dz5rTvxn8PavZyEQLwsKpaKhjiRf/oL4OE2EgTQGTw
+  vy1QdgaGRcmALgWk0/+kLWArzJJRkNGmq8nKZ9xfUlUppC6cC2d177P1ruRR7rR6
+  LNp0nbxyYlJUr+RNNZnJ4QKBgDRsuGDHPygKEW0HeFI61mraG4Sx7rX3eAB2/Xdu
+  SobUUqKJmLef9s91ZAS+baretlpvEeDULdRjk59Xg3Yb2UOXl7Y5WZMg1kdejJSm
+  qg6lwsPA9e8JiZJZdJ0h64m4TR0Qugp0iSipRKiP8bAxoSrVNan3AtypNtJbiyRc
+  kXMzAoGBAJRjEnJcm41Siz+qWKh1MrNYeTSJHreCDgwZQOLdJGpJkVN/nuDj+4TP
+  4LH98+cyQRh/PFSwrLeu4dP8lyI+iOUSexcMnY9BvwYSrYrepaeZOZiTa45n4Lpb
+  5AhdG04bAzC3ut7zKlK1MG5KWDXCzG0ewAeAJsobtTucX7fsehjG`;
   let jsEncrypt = new JSEncrypt();
   jsEncrypt.setPublicKey(publicKey);
   return jsEncrypt.encrypt(params);

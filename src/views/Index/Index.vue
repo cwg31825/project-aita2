@@ -6,7 +6,7 @@
     
     <v-service :serviceData="service.list"></v-service>
     <v-message :marqueeList="message.data"></v-message>
-    <mt-button size="large" type="primary" @click="ready()">234234234</mt-button>
+    <!-- <mt-button size="large" type="primary" @click="ready()">支付宝</mt-button> -->
     <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" @top-status-change="handleTopChange" :bottom-all-loaded="allLoaded" :auto-fill="false" ref="loadmore">
        <div slot="top" class="mint-loadmore-top">
             <span v-show="topStatus === 'pull'" :class="{ 'rotate': topStatus === 'drop' }">↓</span>
@@ -74,7 +74,7 @@ export default {
     ready() {
 
       let datas = {
-        app_id:'2018082061140047',
+        app_id:'2016091600524401',
         method:'alipay.trade.app.pay',
         charset:'UTF-8',
         sign_type:'RSA2',
@@ -84,12 +84,15 @@ export default {
       }
       let s = qs.stringify(datas)
       datas.sign = Util.encrypt(s)
-      let payInfo = qs.stringify(datas)
+      //
+      var payInfo = "app_id=2015052600090779&biz_content=%7B%22timeout_express%22%3A%2230m%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%2C%22total_amount%22%3A%220.01%22%2C%22subject%22%3A%221%22%2C%22body%22%3A%22%E6%88%91%E6%98%AF%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE%22%2C%22out_trade_no%22%3A%22IQJZSRC1YMQB5HU%22%7D&charset=utf-8&format=json&method=alipay.trade.app.pay&notify_url=http%3A%2F%2Fdomain.merchant.com%2Fpayment_notify&sign_type=RSA2&timestamp=2016-08-25%2020%3A26%3A31&version=1.0&sign=cYmuUnKi5QdBsoZEAbMXVMmRWjsuUj%2By48A2DvWAVVBuYkiBj13CFDHu2vZQvmOfkjE0YqCUQE04kqm9Xg3tIX8tPeIGIFtsIyp%2FM45w1ZsDOiduBbduGfRo1XRsvAyVAv2hCrBLLrDI5Vi7uZZ77Lo5J0PpUUWwyQGt0M4cj8g%3D";
+     // let payInfo = qs.stringify(datas)
       cordova.plugins.alipay.payment(payInfo,
       function success(e){
-        console.log(e)
-      },function error(e){
-console.log(e)
+        alert('1='+e.resultStatus+e.memo)
+      },
+      function error(e){
+        alert('2='+e.resultStatus+e.memo)
       });
     },
     loadTop() {

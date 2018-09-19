@@ -9,19 +9,19 @@ export const submitOrder = (data) => {
   return _post(req);
 }
 
-//准备支付
-export const initPay = (data) => {
+//web支付
+export const webPay = (data) => {
   let req = {
     data,
     url: 'order/pay'
   }
   return _post(req);
 }
-//请求支付
-export const requestPay = (data) => {
+//app支付
+export const appPay = (data) => {
   let req = {
     data,
-    url: '//openapi.alipaydev.com/gateway.do'
+    url: 'order/apppay'
   }
   return _post(req)
 }
