@@ -18,17 +18,17 @@ vuex + webStorage 实现了购物车功能,axios拦截统一处理 ajax 请求�
 
 camera插件
 
-cordova plugin add cordova-plugin-camera
+    cordova plugin add cordova-plugin-camera
 
 通过照相机API、我们可以拍摄或者访问照片库中的照片，返回图片的base64编码字符串或者图片的url文件路径。
 
     cordova plugin add cordova-plugin-alipay-v2 --variable APP_ID=[your AppId]
 
-    支付宝《APP支付》功能说明
+支付宝《APP支付》功能说明
 
-    根据支付宝的说明文档的建议，为保证安全，签名都放到后端去做，前端只需要接收后台传入签名字符串，使用该插件调用支付宝SDK完成支付
+根据支付宝的说明文档的建议，为保证安全，签名都放到后端去做，前端只需要接收后台传入签名字符串，使用该插件调用支付宝SDK完成支付
 
-    APP_ID：对应开放平台中应用的APPID，主要用于iOS平台xcode构建URL Schemes
+APP_ID：对应开放平台中应用的APPID，主要用于iOS平台xcode构建URL Schemes
 
 第一步：订单在服务端签名生成订单信息，具体请参考官网进行签名处理 https://docs.open.alipay.com/204/105465/
 
@@ -53,7 +53,7 @@ cordova plugin add cordova-plugin-camera
 * 如要使用沙箱环境，请自行参考官方文档https://docs.open.alipay.com/200/105311/
 * android支持沙箱环境的方法：
 
-* * 在项目中找到android平台对于的插件源码文件，位于应用根目录下：
+* 在项目中找到android平台对于的插件源码文件，位于应用根目录下：
 
 * platforms/android/src/cn/hhjjj/alipay/alipay.java
 
